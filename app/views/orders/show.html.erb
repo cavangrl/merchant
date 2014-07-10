@@ -1,0 +1,81 @@
+
+<h1>Your Order</h1>
+
+<table>
+  <tr>
+    <th>Customer</th>
+    <td><%= @order.user_id %></td>
+  </tr>
+  <tr>
+    <th>Status:</th>
+    <td><%= @order.status %></td>
+  </tr>
+  <tr>
+    <th>Items:</th>
+    <td><%= @order.order_items.count %></td>
+  </tr>
+  <tr>
+    <th>Items</th>
+    <th>Title</th>
+    <th>Quantity</th>
+    <th>Unit Price</th>
+    <th>Subtotal</th>
+  </tr>
+  <% @order.order_items.each do |item| %>
+
+<% end %>
+ 
+</table>
+
+
+
+
+
+<h1>Your Order</h1>
+
+<%= form_for @order do |f| %>
+
+<table>
+  <tr>
+    <th>Customer</th>
+    <td><%= @order.user.name if @order.user %></td>
+  </tr>
+  <tr>
+    <th>Status:</th>
+    <td><%= @order.status %></td>
+  </tr>
+  <tr>
+    <th>Items:</th>
+    <td><%= @order.order_items.count %></td>
+  </tr>
+  <tr>
+    <th>Order Total:</th>
+    <td><%= print_price @order.total %></td>
+  </tr>
+
+  <tr>
+    <th>Items</th>
+    <th>Title</th>
+    <th>Quantity</th>
+    <th>Stock</th>
+    <th>Unit Price</th>
+    <th>Subtotal</th>
+    <th>Remove</th>
+  </tr>
+
+
+  <% @order.order_items.each do |item| %>
+   <% end %>
+  <tr>
+    <td><%= image_tag "products/#{item.product.image_url}" %></td>
+    <td><%= item.product.title %></td>
+    <td><%= link_to item.quantity, edit_order_item_path(item) %></td>
+   
+    <td><%= print_price item.product.price %></td>
+    <td><%= print_price item.subtotal %></td>
+    <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+  </tr>
+
+  <% end %>
+
